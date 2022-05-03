@@ -8,9 +8,14 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'the_office;'
+    database: 'the_office'
     });
 
+    connection.connect (function (err){
+        if (err) throw err;
+        initialPrompt();
+    
+    })
 const initialPrompt = () => {
     return inquirer.prompt([
         {
