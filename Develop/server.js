@@ -1,8 +1,6 @@
 const inquirer = require('inquirer')
 const cTable = require('console.table');
 const mysql = require('mysql2');
-const Choice = require('inquirer/lib/objects/choice');
-const Choices = require('inquirer/lib/objects/choices');
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -84,6 +82,27 @@ function viewAllRol(){
         console.table(result);
         
         initialPrompt()
+    })
+}
+function addDepartment() { 
+
+    inquirer.prompt([
+        {
+            name: "name",
+            type: "input",
+            message: "Please enter the new department"
+        }
+    ]).then(function(result) {
+        connection.query("INSERT INTO department SET ? ",
+            {
+                name: result.name
+            },
+            function(err) {
+                if (err) throw err
+                console.table(result);
+                initialPrompt();
+            }
+        )
     })
 }
 
