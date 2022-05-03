@@ -33,12 +33,12 @@ const initialPrompt = () => {
             case 'View all Employees':
                 viewAllEmp();
                 break
-            case 'View All Roles':
-                viewAllRol();   
-                break
             case 'View All Departments':
                     viewAllDep();  
                     break
+            case 'View All Roles':
+                viewAllRol();   
+                break
             case 'Add Role':
                 addRole();
                 break
@@ -68,7 +68,15 @@ function viewAllEmp() {
     })
     
 }
-
+function viewAllDep(){
+    connection.query("SELECT employee.first_name AS First, employee.last_name AS Last, department.name AS Department FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id;",
+    function(err, result){
+        if (err) throw err
+        console.table(result);
+        
+        initialPrompt()
+    })
+}
 function viewAllRol(){
     connection.query("SELECT employee.first_name AS First, employee.last_name AS Last, role.title AS Title FROM employee JOIN role ON employee.role_id = role.id;",
     function(err, result){
