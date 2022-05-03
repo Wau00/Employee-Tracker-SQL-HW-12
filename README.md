@@ -4,7 +4,7 @@
 
 ## Description
 
-In this project, we build a program that generates tables and store them on sql databses and deploting them on the terminal.The app has the ability of view, add, and update employees information such as salary, department and manager. This application back-end was build with node.js, and multiple npm packages (inquirer, mysql2, and console.table) the deployed app is hosted using mysql technology. 
+In this project, we build a program that generates tables and store them on sql databses and deploys them on Terminal.The app has the ability of view, add, and update employees information such as salary, department and manager. This application back-end was build with node.js, and multiple npm packages (inquirer, mysql2, and console.table) the deployed app is hosted using mysql technology. 
 
 ## Deployed Video
 Link  of  project video: https://user-images.githubusercontent.com/99919050/166415139-e6dfecc4-3c80-4c8a-9f52-283b2e132a75.mp4
