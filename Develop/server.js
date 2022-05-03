@@ -23,10 +23,9 @@ const initialPrompt = () => {
             name: 'options' ,
             message: 'Please select an option',
             choices: [
-                'View all Employees', 'Add Employee',
-                'Update Employee Role', 'View All Roles',
-                'Add Role', 'View All Departments',
-                'Add Department'
+                'View all Employees', 'View All Departments','View All Roles',
+                'Add Role', 'Add Department','Add Employee',
+                'Update Employee Role' 
             ]
         }
     ]).then(userChoice =>{
@@ -34,24 +33,24 @@ const initialPrompt = () => {
             case 'View all Employees':
                 viewAllEmp();
                 break
+            case 'View All Roles':
+                viewAllRol();   
+                break
+            case 'View All Departments':
+                    viewAllDep();  
+                    break
+            case 'Add Role':
+                addRole();
+                break
+            case 'Add Department':
+                    addDepartment()   
+                    break       
             case 'Add Employee':
                 addEmployee();
                 break  
             case 'Update Employee Role':
                 updateEmployee();
-                break
-            case 'View All Roles':
-                viewAllRol();   
-                break
-            case 'Add Role':
-                addRole();
-                break
-            case 'View All Departments':
-                viewAllDep();  
-                break
-            case 'Add Department':
-                addDepartment()   
-                break              
+                break     
             default:
                 initialPrompt();
         }
@@ -70,3 +69,46 @@ function viewAllEmp() {
     
 }
 
+
+
+function addEmployee() {
+    connection.query("SELECT * FROM ROLE", function(err, result){
+        if (err) throw err;
+    
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'firstName',
+                message: 'Please enter the employee First name'
+            },
+            {
+                type: 'input',
+                name: 'lastName',
+                message: 'Please enter the employee Last Name'
+            },
+            {
+                type: 'rawlist',
+                message:'Please enter the employee Role',
+                name: 'role',
+                choices: function(){
+                    let choiceArr = [];
+                    for(i=0; i< result.length; i++){
+                        choiceArr.push(result[i].title)
+                    } return choiceArr;
+                }
+            },
+            
+        ])
+        .then(function(userChoice){
+            connection.query("INSERT INTO employee SET ?",
+            {
+                first_name: userChoice.firstName,
+                last_name: userChoice.lastName,
+                role_id: userChoice.role, 
+                
+            }
+            )
+            initialPrompt()
+        });
+    });
+}
