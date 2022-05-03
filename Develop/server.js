@@ -69,7 +69,15 @@ function viewAllEmp() {
     
 }
 
-
+function viewAllRol(){
+    connection.query("SELECT employee.first_name AS First, employee.last_name AS Last, role.title AS Title FROM employee JOIN role ON employee.role_id = role.id;",
+    function(err, result){
+        if (err) throw err
+        console.table(result);
+        
+        initialPrompt()
+    })
+}
 
 function addEmployee() {
     connection.query("SELECT * FROM ROLE", function(err, result){
